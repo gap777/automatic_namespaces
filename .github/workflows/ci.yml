@@ -1,0 +1,46 @@
+name: CI
+
+# This runs every time a new commit is pushed to GitHub.
+on: [push]
+
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+    # We run our `rspec` tests on many versions of Ruby to ensure compatibility.
+    strategy:
+      matrix:
+        ruby:
+          - 2.7
+          # Due to https://github.com/actions/runner/issues/849, we have to use quotes for '3.0'
+          - '3.0'
+          - 3.1
+          - head
+    env:
+      BUNDLE_GEMFILE: Gemfile
+    name: "RSpec tests: Ruby ${{ matrix.ruby }}"
+    steps:
+      # This is an action from the public marketplace. We reference a specific commit as a security measure,
+      # but there are many ways to reference an action:
+      # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
+      - uses: actions/checkout@8230315d06ad95c617244d2f265d237a1682d445
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@eae47962baca661befdfd24e4d6c34ade04858f7
+        with:
+          # This caches the gems that bundle installs so subsequent runs can be faster.
+          # It is what allows us to not run `gem install bundler` and `bundle install` in subsequent steps.
+          bundler-cache: true
+          ruby-version: ${{ matrix.ruby }}
+      - name: Run tests
+        run: bundle exec rspec
+  rubocop:
+    runs-on: ubuntu-latest
+    name: Rubocop
+    steps:
+      - uses: actions/checkout@8230315d06ad95c617244d2f265d237a1682d445
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@eae47962baca661befdfd24e4d6c34ade04858f7
+        with:
+          bundler-cache: true
+          ruby-version: head
+      - name: Run style checks
+        run: bundle exec rubocop
