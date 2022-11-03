@@ -20,7 +20,7 @@ RSpec.describe AutomaticNamespaces do
     expect(defined?(Pants::Jeans)).to eq("constant")
   end
 
-  it 'can find classes that are in an automatic namespace pack which use namespace override' do
+  xit 'can find classes that are in an automatic namespace pack which use namespace override' do
     expect(defined?(ShoesUI::Sneakers)).to eq("constant")
   end
 end
