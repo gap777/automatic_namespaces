@@ -14,4 +14,4 @@ module AutomaticNamespaces
   private_constant :StimpackExtension
 end
 
-require "stimpack/railtie"
+require "automatic_namespaces/railtie"
