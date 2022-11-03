@@ -30,4 +30,15 @@ Gem::Specification.new do |spec|
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
+
+  # spec.add_dependency "railties"
+  spec.add_dependency "activesupport"
+  spec.add_dependency "stimpack"
+
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "debug"
+
+  # We need this in test to load our test fixture Rails application, which represents the "client" of stimpack
+  spec.add_development_dependency "rails"
 end
