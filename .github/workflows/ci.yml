@@ -40,6 +40,6 @@ jobs:
         uses: ruby/setup-ruby@eae47962baca661befdfd24e4d6c34ade04858f7
         with:
           bundler-cache: true
-          ruby-version: head
+          ruby-version: 3.1
       - name: Run style checks
         run: bundle exec rubocop
