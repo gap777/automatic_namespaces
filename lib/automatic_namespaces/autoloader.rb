@@ -3,10 +3,9 @@ require 'yaml'
 class AutomaticNamespaces::Autoloader
 
   def enable_automatic_namespaces
-    namespaced_packages.each do |package_file|
-      pack_root_dir = File.dirname(package_file)
-      package_namespace = define_namespace(pack_root_dir)
-      pack_directories(pack_root_dir).each do |pack_dir|
+    namespaced_packages.each do |pack, metadata|
+      package_namespace = define_namespace(pack, metadata)
+      pack_directories(pack.path).each do |pack_dir|
         set_namespace_for(pack_dir, package_namespace)
       end
     end
@@ -38,21 +37,22 @@ class AutomaticNamespaces::Autoloader
                 .select { |pack_dir| File.exist?(pack_dir) }
   end
 
-  def define_namespace(pack_root_dir)
-    package_directory = File.basename(pack_root_dir).to_s
-    package_name = package_directory.camelize
-    Object.const_set(package_name, Module.new)
-    package_name.constantize
+  def define_namespace(pack, metadata)
+    namespace = metadata['namespace_override'] || pack.name.camelize
+    Object.const_set(namespace, Module.new)
+    namespace.constantize
   end
 
   def namespaced_packages
-    Stimpack::Packs.all.map { |pack| pack.path.join('package.yml').to_s }.select { |package_file| has_automatic_namespace?(package_file) }
+    Stimpack::Packs.all
+                   .map {|pack| [pack, package_metadata(pack)] }
+                   .select {|pack, metadata| metadata && metadata["automatic_pack_namespace"] }
   end
 
-  def has_automatic_namespace?(package_file)
+  def package_metadata(pack)
+    package_file = pack.path.join('package.yml').to_s
     package_description = YAML.load_file(package_file)
-    metadata = package_description["metadata"]
-    metadata && metadata["automatic_pack_namespace"]
+    package_description["metadata"]
   end
 end
 
