@@ -1,6 +1,6 @@
 require 'yaml'
 
-class AutomaticNamespaces::StimpackExtension
+class AutomaticNamespaces::Autoloader
 
   def enable_automatic_namespaces
     namespaced_packages.each do |package_file|
