@@ -20,21 +20,14 @@ class AutomaticNamespaces::Autoloader
     Rails.application.config.watchable_dirs[pack_dir] = [:rb]
   end
 
-  PACK_SUBDIRS = [
-    'app/components',
-    'app/controllers',
-    'app/event_handlers',
-    'app/events',
-    'app/models',
-    'app/public',
-    'app/services',
-    'app/views'
-  ]
-
   def pack_directories(pack_root_dir)
-    PACK_SUBDIRS.map {|subdir| Dir.glob("#{pack_root_dir}/#{subdir}") }
-                .flatten
-                .select { |pack_dir| File.exist?(pack_dir) }
+    Dir.glob("#{pack_root_dir}/app/*").reject { |dir| non_namspaced_directory(dir) }
+  end
+
+  def non_namspaced_directory(dir)
+    dir.include?('/app/assets') ||
+      dir.include?('/app/javascript') ||
+      dir.include?('/app/views')
   end
 
   def define_namespace(pack, metadata)
