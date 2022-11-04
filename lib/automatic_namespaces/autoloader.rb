@@ -26,6 +26,8 @@ class AutomaticNamespaces::Autoloader
 
   def non_namspaced_directory(dir)
     dir.include?('/app/assets') ||
+      dir.include?('/app/helpers') || # Rails assumes helpers are global, not namespaced
+      dir.include?('/app/inputs') || # Not sure how to namespace form inputs
       dir.include?('/app/javascript') ||
       dir.include?('/app/views')
   end
@@ -44,7 +46,6 @@ class AutomaticNamespaces::Autoloader
 
   def package_metadata(pack)
     package_file = pack.path.join('package.yml').to_s
-    puts package_file
     package_description = YAML.load_file(package_file) || {}
     package_description["metadata"]
   end
