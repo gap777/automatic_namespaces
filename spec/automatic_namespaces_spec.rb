@@ -23,4 +23,8 @@ RSpec.describe AutomaticNamespaces do
   it 'can find classes that are in an automatic namespace pack which use namespace override' do
     expect(defined?(ShoesUI::Sneakers)).to eq("constant")
   end
+
+  it "doesn't crash when a package yml is corrupted" do
+    expect(defined?(Shirts::Tshirt)).to eq("constant")
+  end
 end

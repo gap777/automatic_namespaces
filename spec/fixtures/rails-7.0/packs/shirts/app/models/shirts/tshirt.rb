@@ -1,0 +1,1 @@
+class Shirts::Tshirt; end

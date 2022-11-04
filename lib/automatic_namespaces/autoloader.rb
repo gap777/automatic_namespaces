@@ -44,7 +44,8 @@ class AutomaticNamespaces::Autoloader
 
   def package_metadata(pack)
     package_file = pack.path.join('package.yml').to_s
-    package_description = YAML.load_file(package_file)
+    puts package_file
+    package_description = YAML.load_file(package_file) || {}
     package_description["metadata"]
   end
 end
