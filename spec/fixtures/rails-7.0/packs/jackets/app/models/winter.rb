@@ -1,5 +1,3 @@
 module Jackets
-  class Winter < ApplicationRecord
-
-  end
+  class Winter < ApplicationRecord; end
 end

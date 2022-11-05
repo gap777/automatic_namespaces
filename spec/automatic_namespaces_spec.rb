@@ -14,6 +14,8 @@ RSpec.describe AutomaticNamespaces do
     expect(defined?(Jackets::ClothingController)).to eq("constant")
     expect(defined?(Jackets::Summer)).to eq("constant")
     expect(defined?(Jackets::Winter)).to eq("constant")
+    expect(defined?(Jackets::PriceStrategy::SalePrice)).to eq("constant")
+    expect(defined?(Jackets::PriceStrategy::VolumePrice)).to eq("constant")
   end
 
   it 'can find classes that are NOT in an automatic namespace pack' do
