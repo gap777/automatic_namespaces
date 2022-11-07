@@ -108,7 +108,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Thanks to a handful of individuals who directly contributed to the creation of this gem:
 
-* [Caleb Woods](https://github.com/alexevanczuk) - For feeling the pain and helping to spike an approach during a project kickoff at [RoleModel Software](www.rolemodelsoftware.com)
+* [Caleb Woods](https://github.com/calebwoods) - For feeling the pain and helping to spike an approach during a project kickoff at [RoleModel Software](https://www.rolemodelsoftware.com)
 * [Alex Evanczuk](https://github.com/alexevanczuk) - For being willing to collaborate on the project, helping to refine the approach, and even mentoring me on how to create my first gem for sharing with others. 
 * [Xavier Noria](https://github.com/fxn) - For his suggestions on how to patch Zeitwerk to make this work at all, and for suggestions on how to keep hot reloading working after Rails autopaths were missing all pack directories. 
 
