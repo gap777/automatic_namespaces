@@ -1,5 +1,1 @@
-## [Unreleased]
-
-## [0.1.0] - 2022-11-01
-
-- Initial release
+Changes are captured in GitHub [releases](https://github.com/gap777/automatic_namespaces/releases)
