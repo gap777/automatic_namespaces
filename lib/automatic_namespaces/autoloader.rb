@@ -33,15 +33,15 @@ class AutomaticNamespaces::Autoloader
   end
 
   def define_namespace(pack, metadata)
-    namespace = metadata['namespace_override'] || pack.name.camelize
+    namespace = metadata['namespace_override'] || pack.last_name.camelize
     Object.const_set(namespace, Module.new)
     namespace.constantize
   end
 
   def namespaced_packages
-    Stimpack::Packs.all
-                   .map {|pack| [pack, package_metadata(pack)] }
-                   .select {|pack, metadata| metadata && metadata["automatic_pack_namespace"] }
+    Packs.all
+         .map {|pack| [pack, package_metadata(pack)] }
+         .select {|_pack, metadata| metadata && metadata["automatic_pack_namespace"] }
   end
 
   def package_metadata(pack)

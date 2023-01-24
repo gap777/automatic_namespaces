@@ -1,9 +1,9 @@
 PATH
   remote: /Users/gap/Projects/flytedesk/automatic_namespaces
   specs:
-    automatic_namespaces (0.1.0)
+    automatic_namespaces (0.1.3)
       activesupport
-      stimpack
+      packs-rails
 
 GEM
   remote: https://rubygems.org/
@@ -107,6 +107,12 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.9-arm64-darwin)
       racc (~> 1.4)
+    packs (0.0.6)
+      sorbet-runtime
+    packs-rails (0.0.1)
+      activesupport
+      packs
+      railties
     puma (5.6.5)
       nio4r (~> 2.0)
     racc (1.6.0)
@@ -142,6 +148,7 @@ GEM
     rake (13.0.6)
     reline (0.3.1)
       io-console (~> 0.5)
+    sorbet-runtime (0.5.10626)
     sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -150,9 +157,6 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.5.3-arm64-darwin)
-    stimpack (0.7.1)
-      activesupport
-      railties
     thor (1.2.1)
     timeout (0.3.0)
     tzinfo (2.0.5)
@@ -168,11 +172,11 @@ PLATFORMS
 DEPENDENCIES
   automatic_namespaces!
   debug
+  packs-rails
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.3.1)
   sprockets-rails
   sqlite3 (~> 1.4)
-  stimpack
   tzinfo-data
 
 RUBY VERSION
