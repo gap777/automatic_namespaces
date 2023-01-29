@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   # guide at: https://bundler.io/guides/creating_gem.html
 
   spec.add_dependency "activesupport"
-  spec.add_dependency "stimpack"
+  spec.add_dependency "packs-rails"
 
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
