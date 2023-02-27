@@ -1,0 +1,1 @@
+class Hats::Winter::WoolBeanie; end

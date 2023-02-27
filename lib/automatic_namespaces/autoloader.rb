@@ -36,9 +36,15 @@ class AutomaticNamespaces::Autoloader
     namespace_name = metadata['namespace_override'] || pack.last_name.camelize
     namespace_object = Object
     namespace_name.split('::').each do |module_name|
-      namespace_object = namespace_object.const_set(module_name, Module.new)
+      namespace_object = find_or_create_module(namespace_object, module_name)
     end
     namespace_object
+  end
+
+  def find_or_create_module(namespace_object, module_name)
+    namespace_object.const_defined?(module_name) ?
+      namespace_object.const_get(module_name) :
+      namespace_object.const_set(module_name, Module.new)
   end
 
   def namespaced_packages
