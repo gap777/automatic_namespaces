@@ -29,4 +29,10 @@ RSpec.describe AutomaticNamespaces do
   it "doesn't crash when a package yml is corrupted" do
     expect(defined?(Shirts::Tshirt)).to eq("constant")
   end
+
+  context 'nested packages' do
+    it 'can find classes that ARE in an automatic namespace pack' do
+      expect(defined?(Jackets::Pockets::Square)).to eq("constant")
+    end
+  end
 end

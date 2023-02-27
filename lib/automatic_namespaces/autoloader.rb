@@ -34,8 +34,15 @@ class AutomaticNamespaces::Autoloader
 
   def define_namespace(pack, metadata)
     namespace = metadata['namespace_override'] || pack.last_name.camelize
-    Object.const_set(namespace, Module.new)
-    namespace.constantize
+    namespaces = namespace.split('::')
+
+    namespaces.inject(Object) do |parent_namespace, child_namespace|
+      if parent_namespace.const_defined?(child_namespace)
+        parent_namespace.const_get(child_namespace)
+      else
+        parent_namespace.const_set(child_namespace, Module.new)
+      end
+    end
   end
 
   def namespaced_packages
@@ -50,7 +57,3 @@ class AutomaticNamespaces::Autoloader
     package_description["metadata"]
   end
 end
-
-
-
-
