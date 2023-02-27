@@ -39,7 +39,7 @@ class AutomaticNamespaces::Autoloader
     namespaces.each do |child_namespace_name|
       parent_namespace_object = parent_namespace_object.const_set(child_namespace_name, Module.new)
     end
-    namespace_name.constantize
+    parent_namespace_object
   end
 
   def namespaced_packages
