@@ -34,12 +34,11 @@ class AutomaticNamespaces::Autoloader
 
   def define_namespace(pack, metadata)
     namespace_name = metadata['namespace_override'] || pack.last_name.camelize
-    parent_namespace_object = Object
-    namespaces = namespace_name.split('::')
-    namespaces.each do |child_namespace_name|
-      parent_namespace_object = parent_namespace_object.const_set(child_namespace_name, Module.new)
+    namespace_object = Object
+    namespace_name.split('::').each do |module_name|
+      namespace_object = namespace_object.const_set(module_name, Module.new)
     end
-    parent_namespace_object
+    namespace_object
   end
 
   def namespaced_packages
