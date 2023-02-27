@@ -8,6 +8,10 @@ RSpec.describe AutomaticNamespaces do
 
   it "creates a namespace for each pack" do
     expect(defined?(Jackets)).to eq("constant")
+    expect(defined?(Pants)).to eq("constant")
+    expect(defined?(Shirts)).to eq("constant")
+    expect(defined?(ShoesUI)).to eq("constant")
+    expect(defined?(Hats::Summer)).to eq("constant")
   end
 
   it 'can find classes that ARE in an automatic namespace pack' do
@@ -24,6 +28,10 @@ RSpec.describe AutomaticNamespaces do
 
   it 'can find classes that are in an automatic namespace pack which use namespace override' do
     expect(defined?(ShoesUI::Sneakers)).to eq("constant")
+  end
+
+  it 'can find classes that are in an automatic namespace pack which use nested namespace override' do
+    expect(defined?(Hats::Summer::BaseballCap)).to eq("constant")
   end
 
   it "doesn't crash when a package yml is corrupted" do
