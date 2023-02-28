@@ -1,0 +1,1 @@
+class Hats::Summer::BaseballCap; end

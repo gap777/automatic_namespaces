@@ -21,7 +21,7 @@ class AutomaticNamespaces::Autoloader
   end
 
   def pack_directories(pack_root_dir)
-    Dir.glob("#{pack_root_dir}/app/*").reject { |dir| non_namspaced_directory(dir) }
+    Dir.glob("#{pack_root_dir}/**/app/*").reject { |dir| non_namspaced_directory(dir) }
   end
 
   def non_namspaced_directory(dir)
@@ -33,9 +33,18 @@ class AutomaticNamespaces::Autoloader
   end
 
   def define_namespace(pack, metadata)
-    namespace = metadata['namespace_override'] || pack.last_name.camelize
-    Object.const_set(namespace, Module.new)
-    namespace.constantize
+    namespace_name = metadata['namespace_override'] || pack.last_name.camelize
+    namespace_object = Object
+    namespace_name.split('::').each do |module_name|
+      namespace_object = find_or_create_module(namespace_object, module_name)
+    end
+    namespace_object
+  end
+
+  def find_or_create_module(namespace_object, module_name)
+    namespace_object.const_defined?(module_name) ?
+      namespace_object.const_get(module_name) :
+      namespace_object.const_set(module_name, Module.new)
   end
 
   def namespaced_packages
