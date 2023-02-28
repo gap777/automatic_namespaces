@@ -13,12 +13,12 @@ jobs:
     # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-a-workflow-based-on-the-conclusion-of-another-workflow
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - uses: actions/checkout@latest
+      - uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
       - name: Tag and Push Gem
         id: tag-and-push-gem
         # This action basically runs `bundle exec rake release` if there is not an existing tag in GitHub
         # for the current version of the gem, found in the `gemspec`.
-        uses: discourse/publish-rubygems-action@latest
+        uses: discourse/publish-rubygems-action@ec5415e2cc3509a5cc8c4eef9499cf3fb05f8391
         env:
           # This is provided to GitHub Actions automatically – you do not need to add this secret.
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
