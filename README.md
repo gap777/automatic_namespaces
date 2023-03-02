@@ -85,6 +85,17 @@ generally contain namespaced classes. These are exempted from `automatic_namespa
 * javascript
 * views
 
+Additional directories can be excluded by adding them to the `automatic_pack_namespace_exclusions` key in your 
+`package.yml` file. This is useful if you require files in your pack that sit outside of your packs namespace:
+
+```yml
+metadata:
+  automatic_pack_namespace: true
+  automatic_pack_namespace_exclusions:
+    - app/policies # Exclude pundit policies
+    - app/admin # Exclude active admin definition files
+```
+
 If your package / namespace name requires ActiveSupport inflections, you will probably need to tell `automatic_namespaces`
 what the correct namespace name should be in that package:
 

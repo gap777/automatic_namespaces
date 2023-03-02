@@ -43,4 +43,10 @@ RSpec.describe AutomaticNamespaces do
   it 'excludes helpers from automatic namespacing' do
     expect(defined?(ShirtHelper)).to eq("constant")
   end
+
+  context 'when automatic_namespaces_exclusions is provided' do
+    it 'does not add the namespace to files in those directories' do
+      expect(defined?(Sneaker)).to eq("constant")
+    end
+  end
 end
