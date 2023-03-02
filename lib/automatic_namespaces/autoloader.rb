@@ -1,6 +1,7 @@
 require 'yaml'
 
 class AutomaticNamespaces::Autoloader
+  DEFAULT_EXCLUDED_DIRS = %w[/app/helpers /app/inputs /app/javascript /app/views].freeze
 
   def enable_automatic_namespaces
     namespaced_packages.each do |pack, metadata|
@@ -25,11 +26,7 @@ class AutomaticNamespaces::Autoloader
   end
 
   def non_namspaced_directory(dir)
-    dir.include?('/app/assets') ||
-      dir.include?('/app/helpers') || # Rails assumes helpers are global, not namespaced
-      dir.include?('/app/inputs') || # Not sure how to namespace form inputs
-      dir.include?('/app/javascript') ||
-      dir.include?('/app/views')
+    DEFAULT_EXCLUDED_DIRS.any? { |excluded_dir| dir.include?(excluded_dir) }
   end
 
   def define_namespace(pack, metadata)
@@ -59,7 +56,3 @@ class AutomaticNamespaces::Autoloader
     package_description["metadata"]
   end
 end
-
-
-
-

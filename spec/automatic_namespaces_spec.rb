@@ -39,4 +39,8 @@ RSpec.describe AutomaticNamespaces do
   it "doesn't crash when a package yml is corrupted" do
     expect(defined?(Shirts::Tshirt)).to eq("constant")
   end
+
+  it 'excludes helpers from automatic namespacing' do
+    expect(defined?(ShirtHelper)).to eq("constant")
+  end
 end
