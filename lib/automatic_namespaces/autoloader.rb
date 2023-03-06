@@ -1,11 +1,13 @@
 require 'yaml'
 
 class AutomaticNamespaces::Autoloader
+  DEFAULT_EXCLUDED_DIRS = %w[/app/helpers /app/inputs /app/javascript /app/views].freeze
+  PACKAGE_EXCLUDED_DIRS_KEY = "automatic_pack_namespace_exclusions".freeze
 
   def enable_automatic_namespaces
     namespaced_packages.each do |pack, metadata|
       package_namespace = define_namespace(pack, metadata)
-      pack_directories(pack.path).each do |pack_dir|
+      pack_directories(pack.path, metadata).each do |pack_dir|
         set_namespace_for(pack_dir, package_namespace)
       end
     end
@@ -20,16 +22,16 @@ class AutomaticNamespaces::Autoloader
     Rails.application.config.watchable_dirs[pack_dir] = [:rb]
   end
 
-  def pack_directories(pack_root_dir)
-    Dir.glob("#{pack_root_dir}/**/app/*").reject { |dir| non_namspaced_directory(dir) }
+  def pack_directories(pack_root_dir, metadata)
+    Dir.glob("#{pack_root_dir}/**/app/*").select { |dir| namespaced_directory?(dir, metadata) }
   end
 
-  def non_namspaced_directory(dir)
-    dir.include?('/app/assets') ||
-      dir.include?('/app/helpers') || # Rails assumes helpers are global, not namespaced
-      dir.include?('/app/inputs') || # Not sure how to namespace form inputs
-      dir.include?('/app/javascript') ||
-      dir.include?('/app/views')
+  def namespaced_directory?(dir, metadata)
+    excluded_directories(metadata).none? { |excluded_dir| dir.include?(excluded_dir) }
+  end
+
+  def excluded_directories(metadata)
+    DEFAULT_EXCLUDED_DIRS + metadata.fetch(PACKAGE_EXCLUDED_DIRS_KEY, [])
   end
 
   def define_namespace(pack, metadata)
@@ -59,7 +61,3 @@ class AutomaticNamespaces::Autoloader
     package_description["metadata"]
   end
 end
-
-
-
-
