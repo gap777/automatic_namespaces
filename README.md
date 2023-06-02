@@ -11,7 +11,7 @@ app
 │   │   ├── class1.rb       # contains Component1::Class1
 ```
 
-When building a modular monolith using packages ([packwerk](https://github.com/Shopify/packwerk) + [stimpack](https://github.com/rubyatscale/stimpack)), 
+When building a modular monolith using packages ([packwerk](https://github.com/Shopify/packwerk) + [packs-rails](https://github.com/rubyatscale/packs-rails)), 
 this pattern creates a lot of extra noise in the directory structure:
 
 ```
