@@ -36,6 +36,11 @@ class AutomaticNamespaces::Autoloader
 
   def define_namespace(pack, metadata)
     namespace_name = metadata['namespace_override'] || pack.last_name.camelize
+    begin
+      require "./#{pack.name}/app/models/#{namespace_name.underscore}"
+    rescue LoadError
+      nil
+    end
     namespace_object = Object
     namespace_name.split('::').each do |module_name|
       namespace_object = find_or_create_module(namespace_object, module_name)
