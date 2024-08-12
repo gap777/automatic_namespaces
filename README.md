@@ -40,7 +40,7 @@ And that's only for a single pack! As your modular monolith grows, you'll likely
 hundreds) of packs. That's a lot of "namespace" directories that aren't adding a lot of value. You already 
 know the namespace of those classes in a strongly namespaced pack -- it's the pack name -- can Zeitwerk know it, too?
 
-This gem patches the Rails 7 autoloader so that most subdirectories under your strongly namespaced component's `app` directory are 
+This gem configures the Rails 7 autoloader so that most subdirectories under your strongly namespaced component's `app` directory are 
 automatically associated with the namespace. 
 
 ## Installation
