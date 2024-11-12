@@ -6,16 +6,20 @@ class AutomaticNamespaces::Autoloader
 
   def enable_automatic_namespaces
     namespaced_packages.each do |pack, metadata|
-      package_namespace = define_namespace(pack, metadata)
-      pack_directories(pack.path, metadata).each do |pack_dir|
-        set_namespace_for(pack_dir, package_namespace)
-      end
+      set_namespace_for_pack(pack, metadata)
+    end
+  end
+
+  def set_namespace_for_pack(pack, metadata)
+    package_namespace = define_namespace(pack, metadata)
+    pack_directories(pack.path, metadata).each do |pack_dir|
+      set_namespace_for_dir(pack_dir, package_namespace)
     end
   end
 
   private
 
-  def set_namespace_for(pack_dir, package_namespace)
+  def set_namespace_for_dir(pack_dir, package_namespace)
     Rails.logger.debug { "Associating #{pack_dir} with namespace #{package_namespace}" }
     ActiveSupport::Dependencies.autoload_paths.delete(pack_dir)
     Rails.autoloaders.main.push_dir(pack_dir, namespace: package_namespace)
