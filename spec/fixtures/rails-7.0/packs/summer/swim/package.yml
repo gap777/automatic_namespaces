@@ -1,0 +1,4 @@
+metadata:
+  automatic_pack_namespace: true
+  namespace_override: "Summer::Swim"
+  autoload_glob: ''
