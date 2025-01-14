@@ -21,9 +21,9 @@ jobs:
       # This is an action from the public marketplace. We reference a specific commit as a security measure,
       # but there are many ways to reference an action:
       # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-using-versioned-actions
-      - uses: actions/checkout@8230315d06ad95c617244d2f265d237a1682d445
+      - uses: actions/checkout@cbb722410c2e876e24abbe8de2cc27693e501dcb
       - name: Set up Ruby ${{ matrix.ruby }}
-        uses: ruby/setup-ruby@eae47962baca661befdfd24e4d6c34ade04858f7
+        uses: ruby/setup-ruby@4a9ddd6f338a97768b8006bf671dfbad383215f4
         with:
           # This caches the gems that bundle installs so subsequent runs can be faster.
           # It is what allows us to not run `gem install bundler` and `bundle install` in subsequent steps.
