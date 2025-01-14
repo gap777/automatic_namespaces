@@ -5,7 +5,7 @@ on: [pull_request, push]
 
 jobs:
   rspec:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     # We run our `rspec` tests on many versions of Ruby to ensure compatibility.
     strategy:
       matrix:
