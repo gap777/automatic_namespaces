@@ -14,7 +14,11 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - uses: actions/checkout@cbb722410c2e876e24abbe8de2cc27693e501dcb
-      - uses: ruby/setup-ruby@v1
+      # Use a specific Ruby version
+      - name: Set up Ruby 3.3
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3
       - name: Tag and Push Gem
         id: tag-and-push-gem
         # This action basically runs `bundle exec rake release` if there is not an existing tag in GitHub
