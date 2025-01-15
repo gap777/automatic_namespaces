@@ -27,7 +27,8 @@ class AutomaticNamespaces::Autoloader
   end
 
   def pack_directories(pack_root_dir, metadata)
-    Dir.glob("#{pack_root_dir}/**/app/*").select { |dir| namespaced_directory?(dir, metadata) }
+    glob = metadata['autoload_glob'] || "/**/app/*"
+    Dir.glob("#{pack_root_dir}#{glob}").select { |dir| namespaced_directory?(dir, metadata) }
   end
 
   def namespaced_directory?(dir, metadata)
