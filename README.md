@@ -57,7 +57,7 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 Given the `package.yml` of a strongly namespaced pack:
 
-```
+```yml
 enforce_dependencies: true
 enforce_privacy: true
 public_path: app/public/
@@ -72,7 +72,7 @@ metadata:
 
 modify the metadata to opt into automatic namespacing:
 
-```
+```yml
 metadata:
  automatic_pack_namespace: true
 ```
@@ -99,7 +99,7 @@ metadata:
 If your package / namespace name requires ActiveSupport inflections, you will probably need to tell `automatic_namespaces`
 what the correct namespace name should be in that package:
 
-```
+```yml
 # packs/shoes_ui/package.yml
 metadata:
   automatic_pack_namespace: true
@@ -108,6 +108,16 @@ metadata:
 
 This is necessary because `automatic_namespaces` works by modifying the autoloader paths, which has to 
 happen during Rails application initialization; but the inflector is not available for use then.
+
+If you would like to use your own file layout conventions for packs (i.e. not `app/*`) you can specify 
+your own glob by using `autoload_glob` to append the glob to the folder containing package.yml. This defaults
+to `'/**/app/*'` 
+
+```yml
+metadata:
+  # Put the folder containing package.yml as the root for the autoloader.
+  autoload_glob: ''
+```
 
 ## Development
 

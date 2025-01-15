@@ -49,4 +49,10 @@ RSpec.describe AutomaticNamespaces do
       expect(defined?(Sneaker)).to eq("constant")
     end
   end
+
+  it "can find classes that are located at the root of the package.yml" do
+    expect(defined?(Summer::Fun)).to eq("constant")
+    expect(defined?(Summer::Swim)).to eq("constant")
+    expect(defined?(Summer::Swim::Trunks)).to eq("constant")
+  end
 end
