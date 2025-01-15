@@ -19,7 +19,7 @@ jobs:
         id: tag-and-push-gem
         # This action basically runs `bundle exec rake release` if there is not an existing tag in GitHub
         # for the current version of the gem, found in the `gemspec`.
-        uses: discourse/publish-rubygems-action@ec5415e2cc3509a5cc8c4eef9499cf3fb05f8391
+        uses: discourse/publish-rubygems-action@4bd305c65315cb691bad1e8de97a87aaf29a0a85
         env:
           # This is provided to GitHub Actions automatically – you do not need to add this secret.
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
